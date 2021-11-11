@@ -17,6 +17,7 @@ const GifList = (props) => {
   const handleSearchCall = debounce((e) => handleSearch(e), 2000);
 
   const scrollToEnd = () => {
+    console.log("sdfg");
     setLimit(limit + 10);
   };
 
@@ -24,7 +25,7 @@ const GifList = (props) => {
   const handleScroll = () => {
     // check if page has scroll to bottom
     if (
-      window.innerHeight + document.documentElement.scrollTop ===
+      window.innerHeight + document.documentElement.scrollTop >=
       document.documentElement.offsetHeight
     ) {
       scrollToEnd();
