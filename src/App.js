@@ -1,36 +1,26 @@
 import React from "react";
-import { Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
-import {compose} from 'redux';
+import { compose } from "redux";
 import store from "./configureStore";
 import { ThemeProvider } from "styled-components";
-import theme from "./theme";
-import history from "./history";
-// Components
-import InjectLoader from './components/common/Loader/loader';
-import InjectAlert from './containers/HighOrderComponent/injectAlert';
+import { lightTheme, darkTheme, GlobalStyles } from "./theme";
+import InjectLoader from "./components/common/Loader/loader";
+// Components Custom Hook
+import { useDarkMode } from "./components/common/UseDarkMode/useDarkMode";
 // Pages
-import BuilderList from './containers/App/builder-project/index';
-const App = (props) => {
+import GifList from "./containers/App/gifList/index";
 
-    return (
-        <Provider store={store}>
-            <ThemeProvider theme={theme}>                           
-                                <Router history={history}>
-                                            <Switch>
-                                                <Route
-                                                    exact
-                                                    path="/"              
-                                                    component={BuilderList}
-                                                />                               
-                                            </Switch>
-                                </Router>             
-            </ThemeProvider>
-         </Provider>
-    )
-}
-const withLoader = InjectLoader();
-const withAlert = InjectAlert();
-//console.log(InjectLoader(),"dscfs")
-export default compose(withLoader,withAlert)(App);
+const App = () => {
+  const [theme, toggleTheme] = useDarkMode();
+  return (
+    <Provider store={store}>
+      <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+        <GlobalStyles />
+        <GifList theme={theme} toggleTheme={toggleTheme} />
+      </ThemeProvider>
+    </Provider>
+  );
+};
+
+export default App;
 //export default App;

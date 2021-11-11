@@ -1,8 +1,7 @@
 import { combineReducers } from "redux";
 
-import builder from "./containers/App/builder-project/reducer";
-
+import gifList from "./containers/App/gifList/reducer";
 
 export default combineReducers({
-builder
+  gifList,
 });
